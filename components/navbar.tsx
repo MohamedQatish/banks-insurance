@@ -4,11 +4,7 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Moon, Sun, Menu, X, Search, ChevronDown } from 'lucide-react'
-
-interface NavbarProps {
-  darkMode: boolean
-  toggleDarkMode: () => void
-}
+import { useTheme } from '@/components/theme-provider'
 
 const navLinks = [
   { label: 'الرئيسية', href: '/' },
@@ -22,7 +18,8 @@ const navLinks = [
   { label: 'عن المجلة', href: '#' },
 ]
 
-export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
+export default function Navbar() {
+  const { theme, toggleTheme } = useTheme()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
@@ -68,7 +65,7 @@ export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
         className="max-w-7xl mx-auto px-4 md:px-8 py-3 flex items-center justify-between gap-6"
         aria-label="التنقل الرئيسي"
       >
-        {/* Logo — no border, no background, clean */}
+        {/* Logo */}
         <Link href="/" className="flex items-center gap-3 shrink-0 group" aria-label="الرئيسية">
           <div className="relative w-14 h-14 shrink-0">
             <Image
@@ -108,7 +105,6 @@ export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
                 className="relative flex items-center gap-1 px-4 py-2.5 text-sm font-semibold transition-all duration-200 group"
                 style={{ color: 'rgba(255,255,255,0.75)' }}
               >
-                {/* Hover bg */}
                 <span
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded"
                   style={{ background: 'rgba(201,162,39,0.09)' }}
@@ -118,7 +114,6 @@ export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
                 {link.children && (
                   <ChevronDown size={12} className="relative z-10 opacity-50" aria-hidden="true" />
                 )}
-                {/* Gold underline */}
                 <span
                   className="absolute bottom-0 right-3 left-3 h-[2px] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-right"
                   style={{ background: '#c9a227' }}
@@ -190,14 +185,18 @@ export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
             )}
           </div>
 
-          {/* Dark mode */}
+          {/* Dark mode toggle */}
           <button
-            onClick={toggleDarkMode}
-            aria-label={darkMode ? 'الوضع الفاتح' : 'الوضع الداكن'}
-            className="p-2.5 rounded-lg transition-colors hover:bg-white/6"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'التبديل إلى الوضع الفاتح' : 'التبديل إلى الوضع الداكن'}
+            className="p-2.5 rounded-lg transition-all duration-300 hover:bg-white/6"
             style={{ color: 'rgba(201,162,39,0.8)' }}
           >
-            {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+            {theme === 'dark' ? (
+              <Sun size={18} className="transition-transform duration-300" />
+            ) : (
+              <Moon size={18} className="transition-transform duration-300" />
+            )}
           </button>
 
           {/* Mobile menu */}
