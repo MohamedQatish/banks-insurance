@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Zap } from 'lucide-react'
 
@@ -11,6 +11,14 @@ interface TickerItem {
 
 export default function NewsTickerClient({ items }: { items: TickerItem[] }) {
   const [paused, setPaused] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768)
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   return (
     <div
@@ -21,7 +29,6 @@ export default function NewsTickerClient({ items }: { items: TickerItem[] }) {
         height: '42px',
       }}
     >
-      {/* Label */}
       <div
         className="shrink-0 flex items-center gap-2 px-4 h-full z-10"
         style={{
@@ -35,7 +42,6 @@ export default function NewsTickerClient({ items }: { items: TickerItem[] }) {
         <span className="text-sm font-bold whitespace-nowrap">عاجل</span>
       </div>
 
-      {/* Scrolling track */}
       <div
         className="relative flex-1 overflow-hidden h-full cursor-pointer"
         onMouseEnter={() => setPaused(true)}
@@ -46,7 +52,10 @@ export default function NewsTickerClient({ items }: { items: TickerItem[] }) {
       >
         <div
           className="ticker-track h-full items-center"
-          style={{ animationPlayState: paused ? 'paused' : 'running' }}
+          style={{
+            animationDuration: isMobile ? '12s' : '25s',
+            animationPlayState: paused ? 'paused' : 'running',
+          }}
         >
           {[...items, ...items].map((item, i) => (
             <Link

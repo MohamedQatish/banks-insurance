@@ -106,8 +106,8 @@ const quickReads = [
 ]
 
 const opinionPieces = [
-  { id: 1, image: '/images/ad-person-1.png', author: 'د. رامي سلطان', title: 'مستقبل التمويل الإسلامي في السوق السورية', date: '15 يونيو 2025' },
-  { id: 2, image: '/images/ad-person-2.png', author: 'سمر النجار', title: 'التأمين الزراعي: فرص وتحديات في مرحلة إعادة الإعمار', date: '12 يونيو 2025' },
+  { id: 1, image: '/images/ad1.png', author: 'د. رامي سلطان', title: 'مستقبل التمويل الإسلامي في السوق السورية', date: '15 يونيو 2025' },
+  { id: 2, image: '/images/ad2.png', author: 'سمر النجار', title: 'التأمين الزراعي: فرص وتحديات في مرحلة إعادة الإعمار', date: '12 يونيو 2025' },
 ]
 
 export default function HomePage() {
@@ -136,8 +136,8 @@ export default function HomePage() {
             aria-label="إعلانات جانبية يسرى"
           >
             <div className="sticky top-[80px] flex flex-col gap-5">
-              <AdSlot image="/images/ad-person-1.png" alt="إعلان شخصي 1" label="إعلان" portrait />
-              <AdSlot image="/images/ad-person-2.png" alt="إعلان شخصي 2" label="إعلان" portrait />
+              <AdSlot image="/images/ad1.png" alt="إعلان شخصي 1" label="إعلان" portrait />
+              <AdSlot image="/images/ad2.png" alt="إعلان شخصي 2" label="إعلان" portrait />
             </div>
           </aside>
 
@@ -151,7 +151,7 @@ export default function HomePage() {
             <NewsGrid articles={gridArticles} />
 
             {/* Mid-page horizontal ad */}
-            <AdSlot image="/images/ad-billboard.png" alt="إعلان أفقي" label="مساحة إعلانية" />
+            <AdSlot image="/images/ad3.png" alt="إعلان أفقي" label="مساحة إعلانية" />
 
             {/* Quick reads: decrees & regulations */}
             <section aria-label="أحدث القرارات والتعاميم">
@@ -232,8 +232,8 @@ export default function HomePage() {
 
             {/* Bottom ad pair */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <AdSlot image="/images/ad-person-1.png" alt="مساحة إعلانية شخصية" label="مساحة إعلانية" portrait />
-              <AdSlot image="/images/ad-person-2.png" alt="مساحة إعلانية شخصية" label="مساحة إعلانية" portrait />
+              <AdSlot image="/images/ad1.png" alt="مساحة إعلانية شخصية" label="مساحة إعلانية" portrait />
+              <AdSlot image="/images/ad2.png" alt="مساحة إعلانية شخصية" label="مساحة إعلانية" portrait />
             </div>
 
             {/* Trending section */}
