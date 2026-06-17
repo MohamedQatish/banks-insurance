@@ -1,6 +1,6 @@
 'use client'
 
-import { Facebook, Twitter, Linkedin } from 'lucide-react'
+import { Facebook, X, Linkedin } from 'lucide-react'
 
 interface ShareButtonsProps {
   url: string
@@ -30,7 +30,7 @@ export default function ShareButtons({ url, title }: ShareButtonsProps) {
     },
     {
       label: 'تويتر / X',
-      icon: <Twitter size={15} aria-hidden="true" />,
+      icon: <X size={15} aria-hidden="true" />,
       href: `https://twitter.com/intent/tweet?url=${encoded}&text=${encodedTitle}`,
       bg: '#000000',
     },
