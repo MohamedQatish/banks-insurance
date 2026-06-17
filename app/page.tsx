@@ -1,6 +1,3 @@
-'use client'
-
-import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FileText, ChevronLeft, TrendingUp, BookOpen } from 'lucide-react'
@@ -11,6 +8,7 @@ import HeroCard from '@/components/hero-card'
 import NewsGrid from '@/components/news-grid'
 import Sidebar from '@/components/sidebar'
 import Footer from '@/components/footer'
+import { getLatestNews } from '@/lib/news'
 
 // ── Ad slot component ──────────────────────────────────────────────────────────
 function AdSlot({
@@ -45,14 +43,12 @@ function AdSlot({
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        {/* Overlay */}
         <div
           className="absolute inset-0"
           style={{ background: portrait ? 'linear-gradient(to top, rgba(6,14,26,0.65) 0%, transparent 45%)' : 'linear-gradient(to left, rgba(6,14,26,0.55) 0%, transparent 60%)' }}
           aria-hidden="true"
         />
       </div>
-      {/* Label */}
       <div
         className="absolute bottom-2 right-2 text-xs px-2.5 py-1 rounded-md"
         style={{
@@ -102,7 +98,6 @@ function SectionHeading({
   )
 }
 
-// ── Quick-read articles strip ──────────────────────────────────────────────────
 const quickReads = [
   { id: 1, category: 'قرارات', categoryColor: '#1a56db', title: 'تعميم رقم 14/2025 بشأن معايير منح الائتمان للمنشآت الصغيرة والمتوسطة', date: '14/06/2025' },
   { id: 2, category: 'تعاميم', categoryColor: '#0a7a42', title: 'قرار مجلس الوزراء رقم 812 المتعلق بتنظيم عمل شركات التأمين', date: '10/06/2025' },
@@ -116,15 +111,14 @@ const opinionPieces = [
 ]
 
 export default function HomePage() {
-  const [darkMode, setDarkMode] = useState(false)
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', darkMode)
-  }, [darkMode])
+  // Fetch latest 6 news articles for the grid (skip the first one which is the hero)
+  const latestNews = getLatestNews(6)
+  // NewsGrid shows articles 2-6 on the home page (hero shows #1)
+  const gridArticles = latestNews.slice(1)
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: '#f0f4f8', direction: 'rtl' }}>
-      <Navbar darkMode={darkMode} toggleDarkMode={() => setDarkMode(!darkMode)} />
+      <Navbar />
       <NewsTicker />
 
       {/* ── Hero Slider ──────────────────────────────────────────────────────── */}
@@ -133,7 +127,6 @@ export default function HomePage() {
       {/* ── Main content ─────────────────────────────────────────────────────── */}
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 md:px-8 py-6">
 
-        {/* Layout: [left ad column] + [center] + [right sidebar] */}
         <div className="flex gap-5">
 
           {/* ── Left portrait ad column (desktop only) ───────────────────────── */}
@@ -143,36 +136,22 @@ export default function HomePage() {
             aria-label="إعلانات جانبية يسرى"
           >
             <div className="sticky top-[80px] flex flex-col gap-5">
-              <AdSlot
-                image="/images/ad-person-1.png"
-                alt="إعلان شخصي 1"
-                label="إعلان"
-                portrait
-              />
-              <AdSlot
-                image="/images/ad-person-2.png"
-                alt="إعلان شخصي 2"
-                label="إعلان"
-                portrait
-              />
+              <AdSlot image="/images/ad-person-1.png" alt="إعلان شخصي 1" label="إعلان" portrait />
+              <AdSlot image="/images/ad-person-2.png" alt="إعلان شخصي 2" label="إعلان" portrait />
             </div>
           </aside>
 
           {/* ── Center column ────────────────────────────────────────────────── */}
           <div className="flex-1 min-w-0 flex flex-col gap-8">
 
-            {/* Hero feature */}
+            {/* Hero feature — shows latest article */}
             <HeroCard />
 
-            {/* Latest news grid */}
-            <NewsGrid />
+            {/* Latest news grid — shows next 5 articles */}
+            <NewsGrid articles={gridArticles} />
 
             {/* Mid-page horizontal ad */}
-            <AdSlot
-              image="/images/ad-billboard.png"
-              alt="إعلان أفقي"
-              label="مساحة إعلانية"
-            />
+            <AdSlot image="/images/ad-billboard.png" alt="إعلان أفقي" label="مساحة إعلانية" />
 
             {/* Quick reads: decrees & regulations */}
             <section aria-label="أحدث القرارات والتعاميم">
@@ -193,12 +172,7 @@ export default function HomePage() {
                       boxShadow: '0 1px 6px rgba(10,22,40,0.05)',
                     }}
                   >
-                    <FileText
-                      size={16}
-                      className="shrink-0 mt-0.5"
-                      style={{ color: '#c9a227' }}
-                      aria-hidden="true"
-                    />
+                    <FileText size={16} className="shrink-0 mt-0.5" style={{ color: '#c9a227' }} aria-hidden="true" />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-1.5 mb-1.5">
                         <span
@@ -220,12 +194,7 @@ export default function HomePage() {
                         {item.title}
                       </p>
                     </div>
-                    <ChevronLeft
-                      size={13}
-                      className="shrink-0 mt-1 opacity-25 group-hover:opacity-70 transition-opacity"
-                      style={{ color: '#c9a227' }}
-                      aria-hidden="true"
-                    />
+                    <ChevronLeft size={13} className="shrink-0 mt-1 opacity-25 group-hover:opacity-70 transition-opacity" style={{ color: '#c9a227' }} aria-hidden="true" />
                   </a>
                 ))}
               </div>
@@ -233,11 +202,7 @@ export default function HomePage() {
 
             {/* Opinion / contributors strip */}
             <section aria-label="آراء وتحليلات">
-              <SectionHeading
-                icon={<BookOpen size={18} />}
-                title="آراء وتحليلات"
-                viewAllHref="#"
-              />
+              <SectionHeading icon={<BookOpen size={18} />} title="آراء وتحليلات" viewAllHref="#" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {opinionPieces.map((p) => (
                   <a
@@ -250,23 +215,12 @@ export default function HomePage() {
                       boxShadow: '0 1px 6px rgba(10,22,40,0.05)',
                     }}
                   >
-                    <div
-                      className="relative shrink-0 rounded-xl overflow-hidden"
-                      style={{ width: '64px', height: '80px' }}
-                    >
-                      <Image
-                        src={p.image}
-                        alt={p.author}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
+                    <div className="relative shrink-0 rounded-xl overflow-hidden" style={{ width: '64px', height: '80px' }}>
+                      <Image src={p.image} alt={p.author} fill className="object-cover transition-transform duration-300 group-hover:scale-105" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-bold mb-1" style={{ color: '#c9a227' }}>{p.author}</p>
-                      <p
-                        className="text-sm font-semibold leading-relaxed line-clamp-2 text-pretty group-hover:text-[#0a1628]"
-                        style={{ color: '#1e3a5f' }}
-                      >
+                      <p className="text-sm font-semibold leading-relaxed line-clamp-2 text-pretty group-hover:text-[#0a1628]" style={{ color: '#1e3a5f' }}>
                         {p.title}
                       </p>
                       <time className="text-xs mt-1 block" style={{ color: '#8a9bb8' }}>{p.date}</time>
@@ -278,26 +232,13 @@ export default function HomePage() {
 
             {/* Bottom ad pair */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <AdSlot
-                image="/images/ad-person-1.png"
-                alt="مساحة إعلانية شخصية"
-                label="مساحة إعلانية"
-                portrait
-              />
-              <AdSlot
-                image="/images/ad-person-2.png"
-                alt="مساحة إعلانية شخصية"
-                label="مساحة إعلانية"
-                portrait
-              />
+              <AdSlot image="/images/ad-person-1.png" alt="مساحة إعلانية شخصية" label="مساحة إعلانية" portrait />
+              <AdSlot image="/images/ad-person-2.png" alt="مساحة إعلانية شخصية" label="مساحة إعلانية" portrait />
             </div>
 
             {/* Trending section */}
             <section aria-label="الأكثر قراءة">
-              <SectionHeading
-                icon={<TrendingUp size={18} />}
-                title="الأكثر قراءة"
-              />
+              <SectionHeading icon={<TrendingUp size={18} />} title="الأكثر قراءة" />
               <ol className="flex flex-col gap-2">
                 {[
                   'مصرف سوريا المركزي يعتمد معايير بازل III بشكل كامل',
@@ -329,12 +270,7 @@ export default function HomePage() {
                       >
                         {title}
                       </p>
-                      <ChevronLeft
-                        size={13}
-                        className="shrink-0 opacity-25 group-hover:opacity-70 transition-opacity"
-                        style={{ color: '#c9a227' }}
-                        aria-hidden="true"
-                      />
+                      <ChevronLeft size={13} className="shrink-0 opacity-25 group-hover:opacity-70 transition-opacity" style={{ color: '#c9a227' }} aria-hidden="true" />
                     </a>
                   </li>
                 ))}
