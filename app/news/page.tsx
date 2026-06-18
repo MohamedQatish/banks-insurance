@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react' // 1. استيراد Suspense هنا
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import NewsTicker from '@/components/news-ticker'
@@ -33,7 +34,14 @@ export default function NewsPage() {
       </div>
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 md:px-8 py-8">
-        <NewsPageClient allArticles={allArticles} categories={categories} />
+        {/* 2. تغليف المكون بـ Suspense لحل مشكلة الـ Prerendering في Vercel */}
+        <Suspense fallback={
+          <div className="w-full py-20 text-center text-[#0a1628] font-bold animate-pulse text-sm">
+            جاري تحميل الأخبار...
+          </div>
+        }>
+          <NewsPageClient allArticles={allArticles} categories={categories} />
+        </Suspense>
       </main>
 
       <Footer />
