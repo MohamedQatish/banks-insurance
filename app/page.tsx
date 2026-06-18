@@ -6,11 +6,10 @@ import NewsTicker from '@/components/news-ticker'
 import AdBillboard from '@/components/ad-billboard'
 import HeroCard from '@/components/hero-card'
 import NewsGrid from '@/components/news-grid'
-import Sidebar from '@/components/sidebar'
+import Sidebar, { decrees } from '@/components/sidebar'
 import Footer from '@/components/footer'
 import { getLatestNews } from '@/lib/news'
 
-// ── Ad slot component ──────────────────────────────────────────────────────────
 function AdSlot({
   image,
   alt,
@@ -49,23 +48,10 @@ function AdSlot({
           aria-hidden="true"
         />
       </div>
-      <div
-        className="absolute bottom-2 right-2 text-xs px-2.5 py-1 rounded-md"
-        style={{
-          background: 'rgba(6,14,26,0.72)',
-          color: 'rgba(201,162,39,0.8)',
-          backdropFilter: 'blur(6px)',
-          border: '1px solid rgba(201,162,39,0.18)',
-        }}
-        aria-hidden="true"
-      >
-        {label}
-      </div>
     </a>
   )
 }
 
-// ── Section heading ────────────────────────────────────────────────────────────
 function SectionHeading({
   icon,
   title,
@@ -98,38 +84,23 @@ function SectionHeading({
   )
 }
 
-const quickReads = [
-  { id: 1, category: 'قرارات', categoryColor: '#1a56db', title: 'تعميم رقم 14/2025 بشأن معايير منح الائتمان للمنشآت الصغيرة والمتوسطة', date: '14/06/2025' },
-  { id: 2, category: 'تعاميم', categoryColor: '#0a7a42', title: 'قرار مجلس الوزراء رقم 812 المتعلق بتنظيم عمل شركات التأمين', date: '10/06/2025' },
-  { id: 3, category: 'تأمين', categoryColor: '#9d3c10', title: 'تعليمات هيئة الإشراف على التأمين بشأن متطلبات الملاءة المالية', date: '05/06/2025' },
-  { id: 4, category: 'مصارف', categoryColor: '#c9a227', title: 'تعميم رقم 11/2025 بشأن ضوابط التعامل بالعملات الأجنبية', date: '01/06/2025' },
-]
-
 const opinionPieces = [
-  { id: 1, image: '/images/ad1.png', author: 'د. رامي سلطان', title: 'مستقبل التمويل الإسلامي في السوق السورية', date: '15 يونيو 2025' },
-  { id: 2, image: '/images/ad2.png', author: 'سمر النجار', title: 'التأمين الزراعي: فرص وتحديات في مرحلة إعادة الإعمار', date: '12 يونيو 2025' },
+  { id: 1, image: '/images/ad1.png', author: 'د. رامي سلطان', title: 'مستقبل التمويل الإسلامي في السوق السورية', date: '15 يونيو 2026' },
+  { id: 2, image: '/images/ad2.png', author: 'سمر النجار', title: 'التأمين الزراعي: فرص وتحديات في مرحلة إعادة الإعمار', date: '12 يونيو 2026' },
 ]
 
 export default function HomePage() {
-  // Fetch latest 6 news articles for the grid (skip the first one which is the hero)
   const latestNews = getLatestNews(6)
-  // NewsGrid shows articles 2-6 on the home page (hero shows #1)
   const gridArticles = latestNews.slice(1)
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: '#f0f4f8', direction: 'rtl' }}>
       <Navbar />
       <NewsTicker />
-
-      {/* ── Hero Slider ──────────────────────────────────────────────────────── */}
       <AdBillboard />
 
-      {/* ── Main content ─────────────────────────────────────────────────────── */}
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 md:px-8 py-6">
-
         <div className="flex gap-5">
-
-          {/* ── Left portrait ad column (desktop only) ───────────────────────── */}
           <aside
             className="hidden xl:flex flex-col gap-5 shrink-0"
             style={{ width: '160px' }}
@@ -141,30 +112,21 @@ export default function HomePage() {
             </div>
           </aside>
 
-          {/* ── Center column ────────────────────────────────────────────────── */}
           <div className="flex-1 min-w-0 flex flex-col gap-8">
-
-            {/* Hero feature — shows latest article */}
             <HeroCard />
-
-            {/* Latest news grid — shows next 5 articles */}
             <NewsGrid articles={gridArticles} />
 
-            {/* Mid-page horizontal ad */}
-            <AdSlot image="/images/ad3.png" alt="إعلان أفقي" label="مساحة إعلانية" />
-
-            {/* Quick reads: decrees & regulations */}
             <section aria-label="أحدث القرارات والتعاميم">
               <SectionHeading
                 icon={<FileText size={18} />}
                 title="أحدث القرارات والتعاميم"
-                viewAllHref="#"
+                viewAllHref="/news?category=قرارات"
               />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {quickReads.map((item) => (
-                  <a
+                {decrees.map((item) => (
+                  <Link
                     key={item.id}
-                    href="#"
+                    href="/news?category=قرارات"
                     className="flex items-start gap-3 p-4 rounded-xl group transition-all hover:-translate-y-0.5"
                     style={{
                       background: '#ffffff',
@@ -178,12 +140,12 @@ export default function HomePage() {
                         <span
                           className="text-xs font-bold px-1.5 py-0.5 rounded"
                           style={{
-                            background: `${item.categoryColor}18`,
-                            color: item.categoryColor,
-                            border: `1px solid ${item.categoryColor}35`,
+                            background: `${item.sourceColor}12`,
+                            color: item.sourceColor,
+                            border: `1px solid ${item.sourceColor}35`,
                           }}
                         >
-                          {item.category}
+                          {item.source}
                         </span>
                         <time className="text-xs" style={{ color: '#8a9bb8' }}>{item.date}</time>
                       </div>
@@ -195,12 +157,13 @@ export default function HomePage() {
                       </p>
                     </div>
                     <ChevronLeft size={13} className="shrink-0 mt-1 opacity-25 group-hover:opacity-70 transition-opacity" style={{ color: '#c9a227' }} aria-hidden="true" />
-                  </a>
+                  </Link>
                 ))}
               </div>
             </section>
 
-            {/* Opinion / contributors strip */}
+            <AdSlot image="/images/ad3.png" alt="إعلان أفقي" label="مساحة إعلانية" />
+
             <section aria-label="آراء وتحليلات">
               <SectionHeading icon={<BookOpen size={18} />} title="آراء وتحليلات" viewAllHref="#" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -230,13 +193,11 @@ export default function HomePage() {
               </div>
             </section>
 
-            {/* Bottom ad pair */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <AdSlot image="/images/ad1.png" alt="مساحة إعلانية شخصية" label="مساحة إعلانية" portrait />
               <AdSlot image="/images/ad2.png" alt="مساحة إعلانية شخصية" label="مساحة إعلانية" portrait />
             </div>
 
-            {/* Trending section */}
             <section aria-label="الأكثر قراءة">
               <SectionHeading icon={<TrendingUp size={18} />} title="الأكثر قراءة" />
               <ol className="flex flex-col gap-2">
@@ -278,7 +239,6 @@ export default function HomePage() {
             </section>
           </div>
 
-          {/* ── Right sidebar ─────────────────────────────────────────────────── */}
           <aside className="hidden lg:block w-[300px] xl:w-[320px] shrink-0" aria-label="الشريط الجانبي">
             <div className="sticky top-[80px]">
               <Sidebar />

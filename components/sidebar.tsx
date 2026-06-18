@@ -1,33 +1,34 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { FileText, ChevronLeft, Bookmark, TrendingUp, Eye } from 'lucide-react'
 
 const decrees = [
   {
     id: 1,
-    title: 'تعميم رقم 14/2025 بشأن معايير منح الائتمان للمنشآت الصغيرة والمتوسطة',
-    date: '14/06/2025',
-    source: 'مصرف سوريا المركزي',
+    title: 'قرار حاكم مصرف سورية المركزي رقم 327/ح القاضي بتمديد مهلة استبدال فئات العملة القديمة',
+    date: '15/06/2026',
+    source: 'مصرف سورية المركزي',
     sourceColor: '#1a56db',
   },
   {
     id: 2,
-    title: 'قرار مجلس الوزراء رقم 812 المتعلق بتنظيم عمل شركات التأمين',
-    date: '10/06/2025',
-    source: 'مجلس الوزراء',
+    title: 'قرار وزير المالية رقم 773/ق.و القاضي بتمديد مهلة تقديم البيانات والبيان الضريبي للشركات',
+    date: '11/06/2026',
+    source: 'وزارة المالية',
     sourceColor: '#0a7a42',
   },
   {
     id: 3,
-    title: 'تعليمات هيئة الإشراف على التأمين بشأن متطلبات الملاءة المالية',
-    date: '05/06/2025',
-    source: 'هيئة الإشراف على التأمين',
+    title: 'قرار مجلس مفوضي هيئة الأوراق المالية رقم 31/م الناظم لتعديل كميات الحدود الدنيا للتأثير بالسعر المرجعي لأسهم البورصة',
+    date: '08/06/2026',
+    source: 'هيئة الأوراق المالية',
     sourceColor: '#9d3c10',
   },
   {
     id: 4,
-    title: 'تعميم رقم 11/2025 بشأن ضوابط التعامل بالعملات الأجنبية',
-    date: '01/06/2025',
-    source: 'مصرف سوريا المركزي',
+    title: 'قرار لجنة إدارة مصرف سورية المركزي المعدل للقرار رقم 235/ل لمنح مرونة تسليم الحوالات الخارجية بالعملة الأجنبية أو الليرة',
+    date: '02/06/2026',
+    source: 'مصرف سورية المركزي',
     sourceColor: '#1a56db',
   },
 ]
@@ -38,27 +39,27 @@ const featuredReports = [
     image: '/images/news-5.png',
     category: 'تقرير خاص',
     categoryColor: '#c9a227',
-    title: 'مستقبل القطاع المصرفي السوري بعد رفع العقوبات',
+    title: 'آفاق التحول الرقمي الشامل في المنظومة المصرفية السورية لعام 2026',
     views: '4.2K',
-    date: 'يونيو 2025',
+    date: 'يونيو 2026',
   },
   {
     id: 2,
     image: '/images/news-6.png',
     category: 'تحليل',
     categoryColor: '#b45309',
-    title: 'الذهب ملجأ المدخرات في ظل التضخم المتصاعد',
+    title: 'سوق الذهب المحلي: قراءة في تقلبات الأسعار وملاذات الادخار البديلة',
     views: '3.1K',
-    date: 'مايو 2025',
+    date: 'مايو 2026',
   },
   {
     id: 3,
     image: '/images/news-3.png',
     category: 'دراسة',
     categoryColor: '#0a7a42',
-    title: 'تقييم الوضع التأميني في ظل التحولات الاقتصادية الراهنة',
+    title: 'واقع قطاع التأمين الصحي في سوريا: التحديات وحلول الاستدامة المقترحة',
     views: '2.8K',
-    date: 'أبريل 2025',
+    date: 'أبريل 2026',
   },
 ]
 
@@ -88,7 +89,6 @@ const SectionHeading = ({
 export default function Sidebar() {
   return (
     <aside className="flex flex-col gap-6" aria-label="الشريط الجانبي">
-      {/* Vertical Ad */}
       <div
         className="rounded-xl overflow-hidden relative"
         style={{ border: '1px solid rgba(201,162,39,0.25)' }}
@@ -102,31 +102,9 @@ export default function Sidebar() {
             fill
             className="object-cover"
           />
-          {/* Overlay gradient */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                'linear-gradient(to top, rgba(6,14,26,0.7) 0%, transparent 50%)',
-            }}
-            aria-hidden="true"
-          />
-        </div>
-        <div
-          className="absolute bottom-3 right-3 left-3 text-center text-xs py-1.5 rounded-lg"
-          style={{
-            background: 'rgba(6,14,26,0.75)',
-            color: 'rgba(201,162,39,0.8)',
-            border: '1px solid rgba(201,162,39,0.25)',
-            backdropFilter: 'blur(8px)',
-          }}
-          aria-hidden="true"
-        >
-          مساحة إعلانية — للإعلان: تواصل معنا
         </div>
       </div>
 
-      {/* Featured Reports */}
       <section
         className="rounded-xl overflow-hidden"
         style={{ border: '1px solid #cfd8e6' }}
@@ -144,11 +122,10 @@ export default function Sidebar() {
                     i < featuredReports.length - 1 ? '1px solid #e8edf4' : 'none',
                 }}
               >
-                <a
-                  href="#"
+                <Link
+                  href="/news?category=تقارير"
                   className="flex items-start gap-3 p-3 group transition-colors hover:bg-blue-50/40"
                 >
-                  {/* Thumbnail */}
                   <div
                     className="relative shrink-0 rounded-lg overflow-hidden"
                     style={{ width: '72px', height: '54px' }}
@@ -161,7 +138,6 @@ export default function Sidebar() {
                     />
                   </div>
 
-                  {/* Text */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1.5 mb-1">
                       <span
@@ -199,26 +175,25 @@ export default function Sidebar() {
                     style={{ color: '#c9a227' }}
                     aria-hidden="true"
                   />
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
 
           <div className="px-4 py-3" style={{ borderTop: '1px solid #e8edf4' }}>
-            <a
-              href="#"
+            <Link
+              href="/news?category=تقارير"
               className="flex items-center justify-center gap-1 text-xs font-semibold transition-opacity hover:opacity-70"
               style={{ color: '#c9a227' }}
             >
               <Bookmark size={12} aria-hidden="true" />
               عرض جميع التقارير والملفات
               <ChevronLeft size={12} aria-hidden="true" />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Decrees & Regulations */}
       <section
         className="rounded-xl overflow-hidden"
         style={{ border: '1px solid #cfd8e6' }}
@@ -236,8 +211,8 @@ export default function Sidebar() {
                     i < decrees.length - 1 ? '1px solid #e8edf4' : 'none',
                 }}
               >
-                <a
-                  href="#"
+                <Link
+                  href="/news?category=قرارات"
                   className="flex items-start gap-3 px-4 py-3.5 group transition-colors hover:bg-blue-50/40"
                 >
                   <FileText
@@ -275,23 +250,24 @@ export default function Sidebar() {
                     style={{ color: '#c9a227' }}
                     aria-hidden="true"
                   />
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
 
           <div className="px-4 py-3" style={{ borderTop: '1px solid #e8edf4' }}>
-            <a
-              href="#"
+            <Link
+              href="/news?category=قرارات"
               className="flex items-center justify-center gap-1 text-xs font-semibold transition-opacity hover:opacity-70"
               style={{ color: '#c9a227' }}
             >
               عرض جميع القرارات والتعاميم
               <ChevronLeft size={13} aria-hidden="true" />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
     </aside>
   )
 }
+export { decrees }

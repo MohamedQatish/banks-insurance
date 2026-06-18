@@ -115,7 +115,7 @@ export default function Footer() {
             {/* Contact info */}
             <div className="flex flex-col gap-3">
               <a
-                href="https://wa.me/963992576455"
+                href="https://wa.me/963966906262"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 group/contact"
@@ -226,7 +226,7 @@ export default function Footer() {
 
             {/* WhatsApp channel */}
             <a
-              href="https://wa.me/963992576455"
+              href="https://wa.me/963966906262"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all hover:brightness-110"

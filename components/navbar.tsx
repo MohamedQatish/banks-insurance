@@ -3,19 +3,15 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Moon, Sun, Menu, X, Search, ChevronDown } from 'lucide-react'
+import { Moon, Sun, Menu, X, Search } from 'lucide-react'
 import { useTheme } from '@/components/theme-provider'
 
+// قمنا بتبسيط الروابط لتصبح مباشرة وموجهة بدون قوائم منسدلة معقدة
 const navLinks = [
   { label: 'الرئيسية', href: '/' },
-  {
-    label: 'الأخبار',
-    href: '/news',
-    children: ['أسواق مالية', 'تقنية مالية', 'مؤتمرات وفعاليات', 'تحليلات'],
-  },
-  { label: 'قرارات وتعاميم', href: '#' },
-  { label: 'تقارير وملفات', href: '#' },
-  { label: 'عن المجلة', href: '#' },
+  { label: 'الأخبار', href: '/news' },
+  { label: 'قرارات وتعاميم', href: '/news?category=قرارات' },
+  { label: 'عن المجلة', href: '/about' },
 ]
 
 export default function Navbar() {
@@ -23,7 +19,6 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -92,13 +87,7 @@ export default function Navbar() {
         {/* Desktop nav links */}
         <ul className="hidden lg:flex items-center gap-0" role="menubar">
           {navLinks.map((link) => (
-            <li
-              key={link.label}
-              role="none"
-              className="relative"
-              onMouseEnter={() => link.children && setActiveDropdown(link.label)}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
+            <li key={link.label} role="none" className="relative">
               <Link
                 href={link.href}
                 role="menuitem"
@@ -111,45 +100,12 @@ export default function Navbar() {
                   aria-hidden="true"
                 />
                 <span className="relative z-10 group-hover:text-white transition-colors">{link.label}</span>
-                {link.children && (
-                  <ChevronDown size={12} className="relative z-10 opacity-50" aria-hidden="true" />
-                )}
                 <span
                   className="absolute bottom-0 right-3 left-3 h-[2px] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-right"
                   style={{ background: '#c9a227' }}
                   aria-hidden="true"
                 />
               </Link>
-
-              {/* Dropdown */}
-              {link.children && activeDropdown === link.label && (
-                <div
-                  className="absolute top-full right-0 mt-1.5 py-1.5 rounded-xl min-w-[180px] z-50"
-                  style={{
-                    background: '#0a1628',
-                    border: '1px solid rgba(201,162,39,0.2)',
-                    boxShadow: '0 20px 48px rgba(0,0,0,0.55)',
-                  }}
-                  role="menu"
-                >
-                  {link.children.map((child) => (
-                    <Link
-                      key={child}
-                      href="#"
-                      role="menuitem"
-                      className="flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors hover:bg-white/5"
-                      style={{ color: 'rgba(255,255,255,0.7)', borderBottom: '1px solid rgba(201,162,39,0.07)' }}
-                    >
-                      <span
-                        className="w-1.5 h-1.5 rounded-full shrink-0"
-                        style={{ background: '#c9a227' }}
-                        aria-hidden="true"
-                      />
-                      <span className="hover:text-white">{child}</span>
-                    </Link>
-                  ))}
-                </div>
-              )}
             </li>
           ))}
         </ul>
