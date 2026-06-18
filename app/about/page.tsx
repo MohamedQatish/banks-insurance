@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ChevronLeft, Building2, Target, Award, Users, ShieldCheck, Zap, BarChart3, Briefcase, Globe, Mail, MapPin } from 'lucide-react'
+import { ChevronLeft, Building2, Target, Award, Users, ShieldCheck, Zap, BarChart3, Briefcase, Globe, Mail, MapPin, Quote } from 'lucide-react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 
@@ -32,10 +32,10 @@ export default function AboutPage() {
         {/* شبكة المحتوى المتقدمة */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           
-          {/* العمود الأيمن العريض: الرؤية، الأهداف، والقيم */}
+          {/* العمود الأيمن العريض: الرؤية، الأهداف، الكلمة، والهيكل */}
           <div className="lg:col-span-2 space-y-8">
             
-            {/* بطاقة الرؤية والرسالة */}
+            {/* بطاقة الرؤية والرسالة المحدثة بدقة */}
             <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 md:p-8 shadow-sm grid grid-cols-1 md:grid-cols-2 gap-6">
               <section className="space-y-3">
                 <h2 className="text-base font-bold flex items-center gap-2 text-[#c9a227]">
@@ -47,13 +47,14 @@ export default function AboutPage() {
                 </p>
               </section>
 
+              {/* صياغة احترافية لرسالة المجلة الميدانية والتغطيات */}
               <section className="space-y-3 md:border-r md:border-[#e2e8f0] md:pr-6">
                 <h2 className="text-base font-bold flex items-center gap-2 text-[#c9a227]">
                   <Building2 size={18} />
                   رسالة المجلة
                 </h2>
                 <p className="text-xs md:text-sm text-[#1e3a5f] leading-relaxed">
-                  تمكين المجتمع المالي السوري والعربي وتعميق الثقافة المصرفية، من خلال تغطية ونشر التعاميم والتشريعات الصادرة عن الجهات الحكومية بدقة متناهية فور صدورها.
+                  بناء جسر تواصل متين بين أقطاب المال والأعمال عبر تغطية ميدانية وإنتاج إعلامي متكامل؛ يشمل إجراء اللقاءات والمقابلات الحصرية المصورة مع قيادات الشركات وصناع القرار، وتغطية المعارض والمنتديات الاقتصادية، بالتوازي مع رصد ومواكبة القوانين والتشريعات الرسمية فور صدورها.
                 </p>
               </section>
             </div>
@@ -63,52 +64,73 @@ export default function AboutPage() {
               <div className="bg-white border border-[#e2e8f0] p-5 rounded-xl shadow-sm text-center space-y-2 border-t-4 border-[#0a1628]">
                 <ShieldCheck size={32} className="text-[#0a1628] mx-auto" />
                 <h3 className="text-sm font-bold text-[#0a1628]">المصداقية المطلقة</h3>
-                <p className="text-[11px] text-[#64748b] leading-relaxed">الاعتماد الكامل على المستندات والوثائق الرسمية.</p>
+                <p className="text-[11px] text-[#64748b] leading-relaxed">الاعتماد الكامل على المستندات والتصريحات الرسمية الموثقة.</p>
               </div>
               <div className="bg-white border border-[#e2e8f0] p-5 rounded-xl shadow-sm text-center space-y-2 border-t-4 border-[#c9a227]">
                 <Zap size={32} className="text-[#c9a227] mx-auto" />
                 <h3 className="text-sm font-bold text-[#0a1628]">السرعة والمواكبة</h3>
-                <p className="text-[11px] text-[#64748b] leading-relaxed">تغطية مباشرة للقرارات والتعاميم والفعاليات الاقتصادية.</p>
+                <p className="text-[11px] text-[#64748b] leading-relaxed">تغطية حية وميدانية لكافة المعارض، المؤتمرات، والقرارات العاجلة.</p>
               </div>
               <div className="bg-white border border-[#e2e8f0] p-5 rounded-xl shadow-sm text-center space-y-2 border-t-4 border-[#0a1628]">
                 <BarChart3 size={32} className="text-[#0a1628] mx-auto" />
                 <h3 className="text-sm font-bold text-[#0a1628]">التحليل المعمق</h3>
-                <p className="text-[11px] text-[#64748b] leading-relaxed">قراءة أبعاد وأثر القرارات على حركة السوق المحلي.</p>
+                <p className="text-[11px] text-[#64748b] leading-relaxed">قراءة أبعاد وأثر اللقاءات والتغيرات الهيكلية في السوق.</p>
               </div>
             </section>
 
-            {/* الهيكل الإداري والتحريري */}
+            {/* كلمة المدير العام الفخمة والافتتاحية */}
+            <section className="bg-gradient-to-br from-[#ffffff] to-[#f8fafc] rounded-2xl border border-[#e2e8f0] p-6 md:p-8 shadow-sm relative overflow-hidden">
+              <div className="absolute top-4 left-4 text-[#c9a227]/10 pointer-events-none">
+                <Quote size={80} />
+              </div>
+              <h2 className="text-base font-bold text-[#0a1628] mb-4 flex items-center gap-2">
+                <span className="w-2 h-4 bg-[#c9a227] rounded-sm block"></span>
+                كلمة المدير العام
+              </h2>
+              <p className="text-xs md:text-sm text-[#1e3a5f] leading-relaxed font-medium italic relative z-10">
+                "إن مواكبة التحولات العميقة في القطاع المصرفي السوري وقطاع التأمين تشكل حجر الأساس في عملية البناء الاقتصادي. نحن في مجلة المصارف والتأمين، نلتزم بتقديم المادة العلمية والخبر الصحفي الموثق والتحليل الرصين لرفد المستثمر والمؤسسات وصناع القرار برؤية اقتصادية شاملة تدعم استراتيجيات التحول الرقمي وحوكمة المخاطر."
+              </p>
+            </section>
+
+            {/* الهيكل الإداري والتحريري المتطور بالصور */}
             <section className="bg-white rounded-2xl border border-[#e2e8f0] p-6 md:p-8 shadow-sm space-y-6">
               <h2 className="text-base font-bold text-[#0a1628] flex items-center gap-2 border-b border-[#f1f5f9] pb-4">
                 <Users size={20} className="text-[#c9a227]" />
                 الهيئة الإدارية والتحريرية
               </h2>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex items-center gap-4 p-4 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] hover:border-[#c9a227] transition-all">
-                  <div className="w-12 h-12 rounded-xl bg-[#0a1628] text-[#c9a227] flex items-center justify-center font-bold text-lg shadow-sm">
-                    خ
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                {/* كرت بورتيريه المدير العام خالد قطيش */}
+                <div className="flex items-center gap-4 p-4 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] hover:border-[#c9a227] hover:shadow-md transition-all duration-300">
+                  <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-[#c9a227] shrink-0 shadow-sm bg-[#0a1628]">
+                    <Image 
+                      src="/images/khaled-qatish.png" 
+                      alt="خالد قطيش - المدير العام"
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-[#0a1628]">خالد قطيش</h3>
-                    <p className="text-xs text-[#8a9bb8] mt-0.5">المدير العام ورئيس التحرير</p>
+                    <h3 className="text-sm font-black text-[#0a1628]">خالد قطيش</h3>
+                    <p className="text-xs text-[#c9a227] font-bold mt-0.5">المدير العام ورئيس التحرير</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 p-4 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] hover:border-[#0a1628] transition-all">
-                  <div className="w-12 h-12 rounded-xl bg-slate-200 text-[#0a1628] flex items-center justify-center font-bold text-lg shadow-sm">
-                    هـ
+                {/* كرت هيئة التحرير */}
+                <div className="flex items-center gap-4 p-4 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] hover:border-[#0a1628] hover:shadow-md transition-all duration-300">
+                  <div className="w-16 h-16 rounded-full bg-slate-200 text-[#0a1628] border-2 border-slate-300 flex items-center justify-center font-black text-xl shrink-0 shadow-sm">
+                    مت
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-[#0a1628]">هيئة التحرير</h3>
-                    <p className="text-xs text-[#8a9bb8] mt-0.5">نخبة من الأكاديميين والمستشارين</p>
+                    <h3 className="text-sm font-bold text-[#0a1628]">مجلس التحرير</h3>
+                    <p className="text-xs text-[#8a9bb8] mt-0.5">نخبة من الأكاديميين والمستشارين الماليين</p>
                   </div>
                 </div>
               </div>
             </section>
           </div>
 
-          {/* العمود الأيسر: بطاقة خدمات المجلة ومعلومات الاتصال الموثقة */}
+          {/* العمود الأيسر: بطاقة خدمات المجلة ومعلومات الاتصال المحدثة بروابط Vercel */}
           <div className="space-y-6">
             
             {/* بطاقة الخدمات الذكية */}
@@ -120,20 +142,20 @@ export default function AboutPage() {
               <ul className="space-y-3 text-xs text-[#1e3a5f]">
                 <li className="flex items-start gap-2">
                   <span className="w-1.5 h-1.5 bg-[#c9a227] rounded-full mt-1.5 shrink-0" />
-                  <span>حلول إعلانية ذكية تستهدف صناع القرار الاقتصادي والمستثمرين.</span>
+                  <span>حلول رعاية وإعلانات ذكية تستهدف صناع القرار الاستثماري والشركات.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="w-1.5 h-1.5 bg-[#c9a227] rounded-full mt-1.5 shrink-0" />
-                  <span>تغطية ورعاية إعلامية شاملة للمؤتمرات والمنتديات المصرفية.</span>
+                  <span>تغطيات ميدانية مصورة وإنتاج لقاءات مخصصة للأجنحة في المعارض الاقتصادية.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="w-1.5 h-1.5 bg-[#c9a227] rounded-full mt-1.5 shrink-0" />
-                  <span>إعداد ونشر التقارير والدراسات التحليلية لأسواق المال والتأمين.</span>
+                  <span>إعداد اللقاءات والمقابلات الصحفية التخصصية لدعم انتشار الشركات المالية والتأمينية.</span>
                 </li>
               </ul>
             </div>
 
-            {/* بطاقة العناوين والاتصال السريع */}
+            {/* بطاقة العناوين والاتصال السريع بعد التصحيح للرابط و الـ PR */}
             <div className="bg-[#0a1628] text-white rounded-2xl p-6 shadow-sm space-y-4">
               <h2 className="text-sm font-bold text-[#c9a227]">قنوات التواصل الرسمية</h2>
               
@@ -144,11 +166,15 @@ export default function AboutPage() {
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail size={16} className="text-[#c9a227] shrink-0" />
-                  <span className="lowercase">info@banksinsurancemag.com</span>
+                  <a href="mailto:pr@banks-insurance.com" className="lowercase hover:text-[#c9a227] transition-colors">
+                    pr@banks-insurance.com
+                  </a>
                 </div>
                 <div className="flex items-center gap-3">
                   <Globe size={16} className="text-[#c9a227] shrink-0" />
-                  <span className="lowercase">www.banksinsurancemag.com</span>
+                  <a href="https://banks-insurance.vercel.app" target="_blank" rel="noopener noreferrer" className="lowercase hover:text-[#c9a227] transition-colors">
+                    banks-insurance.vercel.app
+                  </a>
                 </div>
               </div>
             </div>

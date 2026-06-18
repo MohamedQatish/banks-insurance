@@ -131,7 +131,7 @@ export default function Footer() {
                   className="text-sm transition-colors group-hover/contact:text-white"
                   style={{ color: 'rgba(255,255,255,0.55)', direction: 'ltr' }}
                 >
-                  +963 992 576 455
+                  +963 966 906 262
                 </span>
               </a>
 

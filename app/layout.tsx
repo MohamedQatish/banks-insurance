@@ -33,6 +33,7 @@ export default function RootLayout({
       lang="ar"
       dir="rtl"
       className={`${cairo.variable} bg-background`}
+      suppressHydrationWarning
     >
       <body className="font-sans antialiased">
         <ThemeProvider>
