@@ -10,6 +10,38 @@ interface NewsGridProps {
   articles: NewsItem[]
 }
 
+function AdSlot({
+  image,
+  alt,
+  href = "#",
+}: {
+  image: string
+  alt: string
+  href?: string
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block relative rounded-xl overflow-hidden"
+      style={{
+        border: "1px solid rgba(201,162,39,0.2)",
+        boxShadow: "0 2px 12px rgba(10,22,40,0.08)",
+      }}
+    >
+      <div className="relative w-full" style={{ aspectRatio: "3/1" }}>
+        <Image
+          src={image}
+          alt={alt}
+          fill
+          className="object-cover"
+        />
+      </div>
+    </a>
+  )
+}
+
 function CategoryBadge({ label, color }: { label: string; color: string }) {
   return (
     <span
@@ -52,8 +84,8 @@ function MobileCarousel({ articles }: { articles: NewsItem[] }) {
             style={{
               width: 'calc(85vw)',
               maxWidth: '340px',
-              background: '#ffffff',
-              border: '1px solid #cfd8e6',
+              background: 'var(--card)',
+              border: '1px solid var(--border)',
               boxShadow: '0 2px 8px rgba(10,22,40,0.06)',
             }}
           >
@@ -64,17 +96,17 @@ function MobileCarousel({ articles }: { articles: NewsItem[] }) {
               </div>
             </div>
             <div className="p-3 flex flex-col flex-1">
-              <span className="flex items-center gap-1 text-xs mb-2" style={{ color: '#8a9bb8' }}>
+              <span className="flex items-center gap-1 text-xs mb-2" style={{ color: 'var(--muted-foreground)' }}>
                 <Clock size={10} aria-hidden="true" />
                 <time dateTime={article.date}>{new Date(article.date).toLocaleDateString('ar-SY')}</time>
               </span>
-              <h3 className="font-bold text-sm leading-relaxed line-clamp-3 flex-1 text-pretty" style={{ color: '#0a1628' }}>
+              <h3 className="font-bold text-sm leading-relaxed line-clamp-3 flex-1 text-pretty" style={{ color: 'var(--foreground)' }}>
                 {article.title}
               </h3>
               <Link
                 href={`/news/${article.slug}`}
                 className="inline-flex items-center gap-0.5 mt-3 text-xs font-semibold transition-opacity hover:opacity-70"
-                style={{ color: '#c9a227' }}
+                style={{ color: 'var(--accent)' }}
               >
                 اقرأ المزيد
                 <ChevronLeft size={12} aria-hidden="true" />
@@ -89,7 +121,7 @@ function MobileCarousel({ articles }: { articles: NewsItem[] }) {
           onClick={() => goTo(current - 1)}
           disabled={current === 0}
           className="flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-lg transition-all disabled:opacity-30"
-          style={{ background: 'rgba(10,22,40,0.07)', color: '#0a1628' }}
+          style={{ background: 'rgba(10,22,40,0.07)', color: 'var(--foreground)' }}
           aria-label="السابق"
         >
           <ChevronRight size={14} />
@@ -101,7 +133,7 @@ function MobileCarousel({ articles }: { articles: NewsItem[] }) {
               key={i}
               onClick={() => goTo(i)}
               className="rounded-full transition-all duration-300"
-              style={{ width: i === current ? '20px' : '7px', height: '7px', background: i === current ? '#c9a227' : '#cfd8e6' }}
+              style={{ width: i === current ? '20px' : '7px', height: '7px', background: i === current ? 'var(--accent)' : 'var(--border)' }}
               aria-label={`الخبر ${i + 1}`}
               aria-current={i === current}
             />
@@ -111,7 +143,7 @@ function MobileCarousel({ articles }: { articles: NewsItem[] }) {
           onClick={() => goTo(current + 1)}
           disabled={current === total - 1}
           className="flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-lg transition-all disabled:opacity-30"
-          style={{ background: 'rgba(10,22,40,0.07)', color: '#0a1628' }}
+          style={{ background: 'rgba(10,22,40,0.07)', color: 'var(--foreground)' }}
           aria-label="التالي"
         >
           التالي
@@ -134,7 +166,7 @@ function DesktopGrid({ articles }: { articles: NewsItem[] }) {
       <div className="grid grid-cols-2 gap-5">
         <article
           className="rounded-xl overflow-hidden news-card group"
-          style={{ background: '#ffffff', border: '1px solid #cfd8e6', boxShadow: '0 2px 8px rgba(10,22,40,0.06)' }}
+          style={{ background: 'var(--card)', border: '1px solid var(--border)', boxShadow: '0 2px 8px rgba(10,22,40,0.06)' }}
         >
           <div className="relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
             <Image src={featured.image} alt={featured.title} fill className="object-cover news-card-img" priority />
@@ -144,13 +176,13 @@ function DesktopGrid({ articles }: { articles: NewsItem[] }) {
             <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to top, rgba(10,22,40,0.35) 0%, transparent 60%)' }} aria-hidden="true" />
           </div>
           <div className="p-4">
-            <span className="flex items-center gap-1 text-xs mb-2" style={{ color: '#8a9bb8' }}>
+            <span className="flex items-center gap-1 text-xs mb-2" style={{ color: 'var(--muted-foreground)' }}>
               <Clock size={11} aria-hidden="true" />
               <time dateTime={featured.date}>{new Date(featured.date).toLocaleDateString('ar-SY')}</time>
             </span>
-            <h3 className="font-bold text-base leading-relaxed mb-2 text-balance" style={{ color: '#0a1628' }}>{featured.title}</h3>
-            <p className="text-xs leading-relaxed line-clamp-2 mb-3" style={{ color: '#5a6a85' }}>{featured.excerpt}</p>
-            <Link href={`/news/${featured.slug}`} className="inline-flex items-center gap-1 text-xs font-semibold transition-opacity hover:opacity-70" style={{ color: '#c9a227' }}>
+            <h3 className="font-bold text-base leading-relaxed mb-2 text-balance" style={{ color: 'var(--foreground)' }}>{featured.title}</h3>
+            <p className="text-xs leading-relaxed line-clamp-2 mb-3" style={{ color: 'var(--muted-foreground)' }}>{featured.excerpt}</p>
+            <Link href={`/news/${featured.slug}`} className="inline-flex items-center gap-1 text-xs font-semibold transition-opacity hover:opacity-70" style={{ color: 'var(--accent)' }}>
               اقرأ المزيد <ChevronLeft size={13} aria-hidden="true" />
             </Link>
           </div>
@@ -159,7 +191,7 @@ function DesktopGrid({ articles }: { articles: NewsItem[] }) {
         {second && (
           <article
             className="rounded-xl overflow-hidden news-card group"
-            style={{ background: '#ffffff', border: '1px solid #cfd8e6', boxShadow: '0 2px 8px rgba(10,22,40,0.06)' }}
+            style={{ background: 'var(--card)', border: '1px solid var(--border)', boxShadow: '0 2px 8px rgba(10,22,40,0.06)' }}
           >
             <div className="relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
               <Image src={second.image} alt={second.title} fill className="object-cover news-card-img" />
@@ -168,13 +200,13 @@ function DesktopGrid({ articles }: { articles: NewsItem[] }) {
               </div>
             </div>
             <div className="p-4">
-              <span className="flex items-center gap-1 text-xs mb-2" style={{ color: '#8a9bb8' }}>
+              <span className="flex items-center gap-1 text-xs mb-2" style={{ color: 'var(--muted-foreground)' }}>
                 <Clock size={11} aria-hidden="true" />
                 <time dateTime={second.date}>{new Date(second.date).toLocaleDateString('ar-SY')}</time>
               </span>
-              <h3 className="font-bold text-sm leading-relaxed mb-2 line-clamp-2 text-pretty" style={{ color: '#0a1628' }}>{second.title}</h3>
-              <p className="text-xs leading-relaxed line-clamp-2 mb-3" style={{ color: '#5a6a85' }}>{second.excerpt}</p>
-              <Link href={`/news/${second.slug}`} className="inline-flex items-center gap-1 text-xs font-semibold transition-opacity hover:opacity-70" style={{ color: '#c9a227' }}>
+              <h3 className="font-bold text-sm leading-relaxed mb-2 line-clamp-2 text-pretty" style={{ color: 'var(--foreground)' }}>{second.title}</h3>
+              <p className="text-xs leading-relaxed line-clamp-2 mb-3" style={{ color: 'var(--muted-foreground)' }}>{second.excerpt}</p>
+              <Link href={`/news/${second.slug}`} className="inline-flex items-center gap-1 text-xs font-semibold transition-opacity hover:opacity-70" style={{ color: 'var(--accent)' }}>
                 اقرأ المزيد <ChevronLeft size={13} aria-hidden="true" />
               </Link>
             </div>
@@ -182,14 +214,14 @@ function DesktopGrid({ articles }: { articles: NewsItem[] }) {
         )}
       </div>
 
-      {/* Row 2: small cards */}
+      {/* ── Row 2: small cards (بدون إعلان) ── */}
       {small.length > 0 && (
         <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
           {small.map((article) => (
             <article
               key={article.slug}
               className="rounded-xl overflow-hidden news-card group flex flex-col"
-              style={{ background: '#ffffff', border: '1px solid #cfd8e6', boxShadow: '0 2px 8px rgba(10,22,40,0.06)' }}
+              style={{ background: 'var(--card)', border: '1px solid var(--border)', boxShadow: '0 2px 8px rgba(10,22,40,0.06)' }}
             >
               <div className="relative overflow-hidden shrink-0" style={{ aspectRatio: '16/9' }}>
                 <Image src={article.image} alt={article.title} fill className="object-cover news-card-img" />
@@ -198,12 +230,12 @@ function DesktopGrid({ articles }: { articles: NewsItem[] }) {
                 </div>
               </div>
               <div className="p-3 flex flex-col flex-1">
-                <span className="flex items-center gap-1 text-xs mb-1.5" style={{ color: '#8a9bb8' }}>
+                <span className="flex items-center gap-1 text-xs mb-1.5" style={{ color: 'var(--muted-foreground)' }}>
                   <Clock size={10} aria-hidden="true" />
                   <time dateTime={article.date}>{new Date(article.date).toLocaleDateString('ar-SY')}</time>
                 </span>
-                <h3 className="font-bold text-xs leading-relaxed line-clamp-3 flex-1 text-pretty" style={{ color: '#0a1628' }}>{article.title}</h3>
-                <Link href={`/news/${article.slug}`} className="inline-flex items-center gap-0.5 mt-2 text-xs font-semibold transition-opacity hover:opacity-70" style={{ color: '#c9a227' }}>
+                <h3 className="font-bold text-xs leading-relaxed line-clamp-3 flex-1 text-pretty" style={{ color: 'var(--foreground)' }}>{article.title}</h3>
+                <Link href={`/news/${article.slug}`} className="inline-flex items-center gap-0.5 mt-2 text-xs font-semibold transition-opacity hover:opacity-70" style={{ color: 'var(--accent)' }}>
                   اقرأ المزيد <ChevronLeft size={12} aria-hidden="true" />
                 </Link>
               </div>
@@ -219,11 +251,11 @@ export default function NewsGrid({ articles }: NewsGridProps) {
   return (
     <section aria-label="آخر الأخبار" id="news">
       <div className="flex items-center justify-between mb-5">
-        <h2 className="text-lg font-bold flex items-center gap-2" style={{ color: '#0a1628' }}>
-          <span className="inline-block w-1 h-6 rounded-sm" style={{ background: '#c9a227' }} aria-hidden="true" />
+        <h2 className="text-lg font-bold flex items-center gap-2" style={{ color: 'var(--foreground)' }}>
+          <span className="inline-block w-1 h-6 rounded-sm" style={{ background: 'var(--accent)' }} aria-hidden="true" />
           آخر الأخبار
         </h2>
-        <Link href="/news" className="text-xs font-semibold flex items-center gap-1 transition-opacity hover:opacity-70" style={{ color: '#c9a227' }}>
+        <Link href="/news" className="text-xs font-semibold flex items-center gap-1 transition-opacity hover:opacity-70" style={{ color: 'var(--accent)' }}>
           عرض الكل
           <ChevronLeft size={14} aria-hidden="true" />
         </Link>

@@ -13,13 +13,11 @@ import { getLatestNews } from "@/lib/news";
 function AdSlot({
   image,
   alt,
-  label = "مساحة إعلانية",
   href = "#",
   portrait = false,
 }: {
   image: string;
   alt: string;
-  label?: string;
   href?: string;
   portrait?: boolean;
 }) {
@@ -33,7 +31,7 @@ function AdSlot({
         border: "1px solid rgba(201,162,39,0.2)",
         boxShadow: "0 2px 12px rgba(10,22,40,0.08)",
       }}
-      aria-label={label}
+      aria-label={alt}
     >
       <div
         style={{ aspectRatio: portrait ? "3/4" : "3/1" }}
@@ -125,32 +123,42 @@ export default function HomePage() {
       <AdBillboard />
 
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 md:px-8 py-6">
-        <div className="flex gap-5">
+        <div className="flex flex-col lg:flex-row gap-5">
+          {/* ── إعلانات جانبية يسرى (تظهر فقط على الشاشات الكبيرة) ── */}
           <aside
             className="hidden xl:flex flex-col gap-5 shrink-0"
             style={{ width: "160px" }}
             aria-label="إعلانات جانبية يسرى"
           >
-            <div className="sticky top-[80px] flex flex-col gap-5">
-              <AdSlot
-                image="/images/ad1.png"
-                alt="إعلان شخصي 1"
-                label="إعلان"
-                portrait
-              />
-              <AdSlot
-                image="/images/ad2.png"
-                alt="إعلان شخصي 2"
-                label="إعلان"
-                portrait
-              />
-            </div>
+            <AdSlot
+              image="/images/ad1.png"
+              alt="إعلان شخصي 1"
+              href="https://www.facebook.com/share/1FnaMjewB1/"
+              portrait
+            />
+            <AdSlot
+              image="/images/ad2.png"
+              alt="إعلان شخصي 2"
+              href="https://www.facebook.com/share/1GJVtYZYWN/"
+              portrait
+            />
           </aside>
 
+          {/* ── المحتوى الرئيسي ── */}
           <div className="flex-1 min-w-0 flex flex-col gap-8">
             <HeroCard />
             <NewsGrid articles={gridArticles} />
 
+            {/* ── إعلان عريض بعد شبكة الأخبار (ad-infeed) ── */}
+            <div className="my-2">
+              <AdSlot
+                image="/images/ad-infeed.png"
+                alt="إعلان"
+                href="#"
+              />
+            </div>
+
+            {/* ── القرارات والتعاميم ── */}
             <section aria-label="أحدث القرارات والتعاميم">
               <SectionHeading
                 icon={<FileText size={18} />}
@@ -209,13 +217,37 @@ export default function HomePage() {
               </div>
             </section>
 
+            {/* ── إعلان أفقي ── */}
             <AdSlot
               image="/images/ad3.png"
               alt="إعلان أفقي"
-              label="مساحة إعلانية"
+              href="https://www.facebook.com/share/1Eh48HBgFB/"
             />
 
-            {/* قسم آراء وتحليلات بعد التعديل والتوجيه المباشر لصفحة الأخبار */}
+            {/* ── إعلان فاصل بين الأقسام ── */}
+            <div className="my-4">
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block relative rounded-xl overflow-hidden group"
+                style={{
+                  border: "1px solid rgba(201,162,39,0.2)",
+                  boxShadow: "0 2px 12px rgba(10,22,40,0.08)",
+                }}
+              >
+                <div className="relative w-full" style={{ aspectRatio: "3/1" }}>
+                  <Image
+                    src="/images/ad-divider.png"
+                    alt="إعلان فاصل"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+              </a>
+            </div>
+
+            {/* ── آراء وتحليلات ── */}
             <section aria-label="آراء وتحليلات">
               <SectionHeading
                 icon={<BookOpen size={18} />}
@@ -270,21 +302,23 @@ export default function HomePage() {
               </div>
             </section>
 
+            {/* ── إعلانات سفلى ── */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <AdSlot
                 image="/images/ad1.png"
                 alt="مساحة إعلانية شخصية"
-                label="مساحة إعلانية"
+                href="https://www.facebook.com/share/1FnaMjewB1/"
                 portrait
               />
               <AdSlot
                 image="/images/ad2.png"
                 alt="مساحة إعلانية شخصية"
-                label="مساحة إعلانية"
+                href="https://www.facebook.com/share/1GJVtYZYWN/"
                 portrait
               />
             </div>
 
+            {/* ── الأكثر قراءة ── */}
             <section aria-label="الأكثر قراءة">
               <SectionHeading
                 icon={<TrendingUp size={18} />}
@@ -328,11 +362,12 @@ export default function HomePage() {
             </section>
           </div>
 
+          {/* ── القائمة الجانبية (تظهر على الجوال في الأسفل) ── */}
           <aside
-            className="hidden lg:block w-[300px] xl:w-[320px] shrink-0"
+            className="block w-full lg:w-[300px] xl:w-[320px] shrink-0 px-4 lg:px-0 mt-8 lg:mt-0"
             aria-label="الشريط الجانبي"
           >
-            <div className="sticky top-[80px]">
+            <div className="lg:sticky top-[80px]">
               <Sidebar />
             </div>
           </aside>

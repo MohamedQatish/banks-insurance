@@ -89,8 +89,12 @@ const SectionHeading = ({
 export default function Sidebar() {
   return (
     <aside className="flex flex-col gap-6" aria-label="الشريط الجانبي">
-      <div
-        className="rounded-xl overflow-hidden relative"
+      {/* ── إعلان جانبي ── */}
+      <a
+        href="https://www.facebook.com/haseebcafe?mibextid=ZbWKwL"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block rounded-xl overflow-hidden relative"
         style={{ border: '1px solid rgba(201,162,39,0.25)' }}
         role="complementary"
         aria-label="مساحة إعلانية"
@@ -103,8 +107,9 @@ export default function Sidebar() {
             className="object-cover"
           />
         </div>
-      </div>
+      </a>
 
+      {/* ── أبرز التقارير والملفات ── */}
       <section
         className="rounded-xl overflow-hidden"
         style={{ border: '1px solid #cfd8e6' }}
@@ -194,6 +199,7 @@ export default function Sidebar() {
         </div>
       </section>
 
+      {/* ── أحدث القرارات والتعاميم ── */}
       <section
         className="rounded-xl overflow-hidden"
         style={{ border: '1px solid #cfd8e6' }}
